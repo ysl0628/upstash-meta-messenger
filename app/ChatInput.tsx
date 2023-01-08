@@ -2,11 +2,16 @@
 import React, { FormEvent, useState } from 'react'
 import { v4 } from 'uuid'
 import { Message } from '../typings'
+import useSWR from 'swr'
+import fetcher from '../utils/fetchMessage'
 
 const ChatInput = () => {
   const [input, setInput] = useState<string>('')
+  const { data: messages, error, mutate } = useSWR('api/getMessages', fetcher)
 
-  const addMessage = (e: FormEvent<HTMLFormElement>) => {
+  console.log(messages)
+
+  const addMessage = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!input) return
     const messageToSend = input
@@ -18,30 +23,33 @@ const ChatInput = () => {
       created_at: Date.now(),
       username: 'Renee Lan',
       profilePic:
-        'https://images.unsplash.com/photo-1672341105087-33f27340a4c8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
+        'https://images.unsplash.com/photo-1548544099-a89e27f73a84?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80',
       email: 'yihsinlan@gmail.com',
     }
 
     const uploadMessageToUpstash = async () => {
-      const res = await fetch('api/addMessage', {
+      const data = await fetch('api/addMessage', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ message }),
-      })
+      }).then((res) => res.json())
 
-      const data = await res.json()
-
-      console.log('Message :>> ', data)
+      // 將新增的 message 與取得的 messages 一起打回去給 upstash
+      return [data.message, ...messages!]
     }
-    uploadMessageToUpstash()
+    await mutate(uploadMessageToUpstash, {
+      // 在客戶端輸入的 message, 以及已經存在的 messages
+      optimisticData: [message, ...messages!],
+      rollbackOnError: true,
+    })
   }
 
   return (
     <form
       onSubmit={addMessage}
-      className="flex bottom-0 z-50 w-full px-10 py-5 space-x-2 border-t border-gray-100"
+      className="flex fixed bottom-0 z-50 w-full px-10 py-5 space-x-2 border-t border-gray-100 bg-white"
     >
       <input
         type="text"
