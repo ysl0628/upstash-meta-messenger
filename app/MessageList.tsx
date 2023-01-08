@@ -1,6 +1,7 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import useSWR from 'swr'
+import { clientPusher } from '../pusher'
 import { Message } from '../typings'
 import fetcher from '../utils/fetchMessage'
 import MessageComponent from './MessageComponent'
@@ -11,6 +12,30 @@ const MessageList = () => {
     error,
     mutate,
   } = useSWR<Message[]>('api/getMessages', fetcher)
+
+  // real-time update
+  useEffect(() => {
+    const channel = clientPusher.subscribe('messages')
+
+    channel.bind('new-message', async (data: Message) => {
+      // if you sent the message, no need to update cache
+      if (messages?.find((message) => message.id === data.id)) return
+
+      if (!messages) {
+        mutate(fetcher)
+        return
+      }
+      mutate(fetcher, {
+        optimisticData: [data, ...messages!],
+        rollbackOnError: true,
+      })
+    })
+
+    return () => {
+      channel.unbind_all()
+      channel.unsubscribe()
+    }
+  }, [messages, mutate, clientPusher])
 
   return (
     <div className="space-y-5 px-5 pt-8 pb-32 max-w-2xl xl:max-w-4xl mx-auto">
