@@ -18,8 +18,8 @@ const Header = () => {
             alt="Profile Picture"
           />
           <div>
-            <p className="font-bold text-lg">Renee Lan</p>
             <p className="text-blue-400">Logged in as:</p>
+            <p className="font-bold text-lg">Renee Lan</p>
           </div>
         </div>
 
