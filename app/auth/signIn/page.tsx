@@ -7,7 +7,7 @@ import SignInComponent from './SignInComponent'
 const SignInPage = async () => {
   const providers = await getProviders()
   return (
-    <div>
+    <div className="flex flex-col justify-center">
       <div>
         <Image
           className="rounded-full mx-2 object-cover"
