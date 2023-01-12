@@ -45,7 +45,8 @@ const MessageComponent = ({ message }: Props) => {
               isUser && 'text-left'
             }`}
           >
-            {new Date(message.created_at).toLocaleString()}
+            {/* ago 套件 */}
+            <TimeAgo date={new Date(message.created_at)} />
           </p>
         </div>
       </div>
