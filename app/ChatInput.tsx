@@ -4,8 +4,13 @@ import { v4 } from 'uuid'
 import { Message } from '../typings'
 import useSWR from 'swr'
 import fetcher from '../utils/fetchMessage'
+import { Session, unstable_getServerSession } from 'next-auth'
 
-const ChatInput = () => {
+type Props = {
+  session: Session | null
+}
+
+const ChatInput = ({ session }: Props) => {
   const [input, setInput] = useState<string>('')
   const { data: messages, error, mutate } = useSWR('api/getMessages', fetcher)
 
@@ -13,7 +18,7 @@ const ChatInput = () => {
 
   const addMessage = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (!input) return
+    if (!input || !session) return
     const messageToSend = input
     setInput('')
     const id = v4()
@@ -21,10 +26,9 @@ const ChatInput = () => {
       id,
       message: messageToSend,
       created_at: Date.now(),
-      username: 'Renee Lan',
-      profilePic:
-        'https://images.unsplash.com/photo-1548544099-a89e27f73a84?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80',
-      email: 'yihsinlan@gmail.com',
+      username: session?.user?.name!,
+      profilePic: session?.user?.image!,
+      email: session?.user?.email!,
     }
 
     const uploadMessageToUpstash = async () => {

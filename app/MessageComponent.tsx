@@ -1,11 +1,13 @@
-import { Message } from '../typings'
 import Image from 'next/image'
+import { Message } from '../typings'
+import { useSession } from 'next-auth/react'
 
 type Props = {
   message: Message
 }
 const MessageComponent = ({ message }: Props) => {
-  const isUser = true
+  const { data: session } = useSession()
+  const isUser = session?.user?.email === message.email
 
   return (
     <div className={`flex w-fit ${isUser && 'ml-auto'}`}>
