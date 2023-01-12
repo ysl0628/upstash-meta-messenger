@@ -13,8 +13,10 @@ export default async function RootLayout({
     <html>
       <head />
       <body>
-        <Header />
-        <Providers session={session}>{children}</Providers>
+        <Providers session={session}>
+          <Header session={session} />
+          {children}
+        </Providers>
       </body>
     </html>
   )
