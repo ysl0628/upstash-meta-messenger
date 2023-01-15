@@ -2,7 +2,7 @@ export default function Head() {
   return (
     <>
       <title>Sign in to Messenger</title>
-      <meta property="fb:app_id" content="1234567890" />
+      <meta property="fb:app_id" content="724743179227380" />
       <meta property="og:type" content="article" />
       <meta
         property="og:url"
