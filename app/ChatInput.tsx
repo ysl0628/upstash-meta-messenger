@@ -14,8 +14,6 @@ const ChatInput = ({ session }: Props) => {
   const [input, setInput] = useState<string>('')
   const { data: messages, error, mutate } = useSWR('api/getMessages', fetcher)
 
-  console.log(messages)
-
   const addMessage = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!input || !session) return
@@ -48,6 +46,8 @@ const ChatInput = ({ session }: Props) => {
       optimisticData: [message, ...messages!],
       rollbackOnError: true,
     })
+
+    mutate(fetcher)
   }
 
   return (
