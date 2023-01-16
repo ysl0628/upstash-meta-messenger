@@ -1,27 +1,57 @@
-# Next.js + Tailwind CSS Example
+# Real time messenger
+![封面](https://i.imgur.com/UZ4WOv8.png)
+ > 本專案以 Next.js、Upstash、Pusher、Pusher-js、Next-auth、TailwindCSS、SWR 和 React-timeago 構建的 Facebook messenger 之即時聊天應用程式，可登入 Facebook 帳號與其他用戶進行多人聊天。
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.2)](https://tailwindcss.com/blog/tailwindcss-v3-2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+## 作品網址
+- [Messenger](https://upstash-meta-messenger-neon.vercel.app/)
+  - 帳號：您的臉書帳號
+  - 密碼：您的臉書密碼
 
-## Deploy your own
+  
+## 目錄
+- [Real time messenger](#real-time-messenger)
+  - [作品網址](#作品網址)
+  - [目錄](#目錄)
+  - [工具](#工具)
+  - [專案特點](#專案特點)
+    - [登入頁面](#登入頁面)
+    - [上傳圖片至 firebase](#上傳圖片至-firebase)
+    - [獲取 firebase 資料](#獲取-firebase-資料)
+  - [Demo](#demo)
+  - [作者](#作者)
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+## 工具
+- Next.js
+- TypeScript
+- Upstash
+- Pusher
+- Next-Auth
+- SWR
+- TailwindCSS
+- React-timeago
+  
+## 專案特點
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+### 登入頁面
 
-## How to use
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+### 上傳圖片至 firebase
 
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-```
 
-```bash
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-```
+### 獲取 firebase 資料
 
-```bash
-pnpm create next-app --example with-tailwindcss with-tailwindcss-app
-```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+
+## Demo
+- 限時動態：
+![Imgur](https://imgur.com/DCLjavG.gif)
+- 上傳貼文：
+![Imgur](https://imgur.com/LdJ9ImJ.gif)
+- 留言：
+![Imgur](https://imgur.com/XPZIRlL.gif)
+
+
+## 作者
+藍奕欣
+[Github](https://github.com/ysl0628)<br>
+Email: yihsinlan@gmail.com
