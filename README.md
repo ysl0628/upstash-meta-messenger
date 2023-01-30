@@ -86,7 +86,7 @@ B --> E[接收訊息的客戶端]
 
 ## Demo
 - 即時聊天：
-![Imgur]()
+![Imgur](https://imgur.com/hiDWXrN.gif)
 
 
 ## 作者
